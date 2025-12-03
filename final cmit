@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="ta">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ThamizCrew </title>
+
+<link rel="icon" type="image/png" href="A_classic_oil_painting_style_logo_for_Thamiz_Crew_Tamil_gaming_community_depicting_Tamil_temples_and_warriors_in_black_and_white_using_a_warm_terracotta_and_cool_teal_palette_with_an_earthy_and_cool_contrast_rich_t.jpg">
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+/* ===================================
+   CORE THEME VARIABLES
+=================================== */
+:root{
+  --tc-gold:#f5c542;
+  --card-bg:rgba(18,18,18,0.65);
+}
+
+/* Base body */
+body{
+  margin:0;
+  font-family:Inter, ui-sans-serif, system-ui;
+  color:white;
+  background:
+    linear-gradient(180deg,rgba(0,0,0,0.85),rgba(0,0,0,0.55)),
+    url('images/tc-premium-bg.jpg') center/cover fixed no-repeat;
+  overflow-x:hidden;
+  animation:softmove 15s infinite alternate ease-in-out;
+}
+
+/* Soft background camera move */
+@keyframes softmove{
+  0%{background-position:50% 50;}
+  100%{background-position:48% 52%;}
+}
+
+/* cyber gold text */
+.cyber-gold{
+  color:var(--tc-gold);
+  text-shadow:0 0 12px rgba(245,197,66,0.85);
+}
+
+/* glitch logo effect */
+.glitch{position:relative;animation:glskew 2s infinite alternate;}
+.glitch:before,
+.glitch:after{
+  content:attr(data-text);
+  position:absolute;top:0;left:0;
+  color:var(--tc-gold);
+}
+.glitch:before{left:2px;text-shadow:-2px 0 #0ff;animation:gl1 2s infinite;}
+.glitch:after{left:-2px;text-shadow:-2px 0 #f0f;animation:gl2 1.5s infinite;}
+
+@keyframes gl1{
+  0%{clip-path:inset(10% 0 80% 0);}
+  50%{clip-path:inset(40% 0 30% 0);}
+  100%{clip-path:inset(5% 0 90% 0);}
+}
+@keyframes gl2{
+  0%{clip-path:inset(15% 0 70% 0);}
+  50%{clip-path:inset(60% 0 20% 0);}
+  100%{clip-path:inset(20% 0 75% 0);}
+}
+@keyframes glskew{
+  0%{transform:skew(2deg);}
+  100%{transform:skew(-2deg);}
+}
+
+/* Glass card */
+.glass-card{
+  background:var(--card-bg);
+  border-radius:15px;
+  border:1px solid rgba(255,255,255,0.06);
+  padding:1.2rem;
+  box-shadow:0 12px 40px rgba(0,0,0,0.6);
+}
+
+/* tilt effect improved */
+.tilt{
+  transition:transform .25s cubic-bezier(.2,.9,.2,1);
+}
+.tilt:hover{
+  transform: perspective(900px) rotateX(6deg) rotateY(-6deg) scale(1.04);
+}
+
+/* Buttons */
+.btn-gold{
+  position:relative;
+  background:linear-gradient(90deg,#fff,var(--tc-gold));
+  border-radius:10px;
+  padding:.7rem 1.2rem;
+  font-weight:800;
+  color:black;
+}
+.btn-gold-border{
+  position:relative;
+}
+.btn-gold-border:before{
+  content:'';
+  position:absolute;inset:-2px;
+  border-radius:12px;
+  border:2px solid var(--tc-gold);
+  clip-path:inset(0 100% 0 0);
+  transition:clip-path .8s linear;
+}
+.btn-gold-border:hover:before{
+  clip-path:inset(0 0 0 0);
+}
+
+/* Shockwave click */
+.shockwave{overflow:hidden;}
+.shockwave:active:after{
+  content:"";
+  position:absolute;
+  left:50%;top:50%;
+  width:12px;height:12px;
+  background:var(--tc-gold);
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+  animation:shock 0.45s ease-out;
+}
+@keyframes shock{
+  0%{opacity:.7;transform:translate(-50%,-50%) scale(1);}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(18);}
+}
+
+/* cyber underline */
+.cyber-line{
+  position:relative;
+}
+.cyber-line:after{
+  content:"";
+  position:absolute;left:0;bottom:-4px;
+  height:3px;width:0%;
+  background:linear-gradient(90deg,var(--tc-gold),transparent);
+  animation:cyb 2s infinite;
+}
+@keyframes cyb{
+  0%{width:0%;left:0;}
+  40%{width:100%;left:0;}
+  100%{width:0;left:100%;}
+}
+
+/* reveal animation */
+.reveal{opacity:0;transform:translateY(28px);transition:.7s;}
+.reveal.active{opacity:1;transform:translateY(0);}
+
+/* floating text */
+.floating{
+  animation:float 4s infinite ease-in-out;
+}
+@keyframes float{
+  0%{transform:translateY(0);}
+  50%{transform:translateY(-10px);}
+  100%{transform:translateY(0);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="fixed top-0 left-0 right-0 backdrop-blur-md bg-black/30 z-50">
+  <div class="max-w-6xl mx-auto flex items-center justify-between px-6 py-3">
+
+    <div class="flex items-center gap-3">
+      <img src="CDX.png" class="h-12 w-12 rounded-md">
+      <h1 class="text-xl cyber-gold glitch" data-text="🛕・𝗧ʜᴀᴍɪᴢ ᨖ 𝗖ʀᴇᴡ・🛕">🛕・𝗧ʜᴀᴍɪᴢ ᨖ 𝗖ʀᴇᴡ・🛕</h1>
+    </div>
+
+    <nav class="hidden md:flex gap-6 text-sm">
+      <a href="#about">About</a>
+      <a href="#features">Features</a>
+      <a href="#staff">Staff</a>
+      <a href="#stats">Stats</a>
+      <a href="https://discord.gg/B3xRSAf669" class="btn-gold btn-gold-border shockwave">Join</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="pt-32 pb-16 px-6 text-center">
+  <div class="max-w-5xl mx-auto glass-card reveal">
+
+    <h1 class="text-5xl cyber-gold glitch mb-3" data-text="">・𝗧ʜᴀᴍɪᴢ ᨖ 𝗖ʀᴇᴡ・</h1>
+    <p class="muted text-lg">Fastest-growing Tamil Discord community</p>
+
+    <div class="mt-6 flex gap-4 justify-center flex-wrap">
+      <a href="https://discord.gg/B3xRSAf669" class="btn-gold btn-gold-border shockwave">Join Discord</a>
+      <a href="#about" class="px-5 py-3 border border-gray-600 rounded-lg">Learn More</a>
+    </div>
+
+    <!-- ⭐ YOUR CHANGE ADDED HERE -->
+    <p class="mt-6 text-2xl cyber-gold floating">Tamil ・ Gaming  ・ Community</p>
+
+    <div id="heroFrame" class="mt-10 flex justify-center">
+      <div class="tilt" style="padding:20px;border-radius:12px;background:rgba(0,0,0,0.4);">
+        <img src="A_classic_oil_painting_style_logo_for_Thamiz_Crew_Tamil_gaming_community_depicting_Tamil_temples_and_warriors_in_black_and_white_using_a_warm_terracotta_and_cool_teal_palette_with_an_earthy_and_cool_contrast_rich_t.jpg" style="width:200px;">
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ABOUT -->
+<section id="about" class="py-16 text-center px-6">
+  <h2 class="text-3xl cyber-gold cyber-line reveal">About Us</h2>
+  <p class="mt-4 max-w-2xl mx-auto muted">Thamiz Crew is a friendly and active Tamil-language gaming & community Discord server — a space for gamers, streamers, editors, and anyone who loves gaming or just chilling in a good community.</p>
+
+  <div class="max-w-3xl mx-auto mt-10 glass-card tilt reveal">
+    <h3 class="text-xl cyber-gold">Who We Are</h3>
+    <p class="mt-2 muted">Thamiz Crew is a vibrant Tamil digital community powered by gamers, developers, editors, and creative minds.
+We believe in building a friendly and inclusive environment where passion meets collaboration.
+
+From gaming sessions to creative projects, from discussions to community events — we bring people together who share the same energy and enthusiasm. Thamiz Crew isn’t just a server; it’s a family-like space where every member feels valued, respected, and inspired to grow..</p>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="py-12 px-6 bg-black/20">
+  <h2 class="text-3xl text-center cyber-gold cyber-line reveal">Highlights</h2>
+
+  <div class="grid md:grid-cols-3 gap-6 mt-8">
+    <div class="glass-card tilt h-40 reveal">
+      <h3 class="text-xl cyber-gold">Active Chats</h3>
+      <p class="muted mt-2">Our server is always active with fun conversations — gaming talk, tech chats, memes, daily updates, and casual hangouts. There’s always someone to chat with, get help from, or just vibe with, 24/7.</p>
+    </div>
+    <div class="glass-card tilt h-40 reveal">
+      <h3 class="text-xl cyber-gold">Events</h3>
+      <p class="muted mt-2">We host regular fun events like gaming matches, quiz nights, movie sessions, and VC hangouts. Our events bring the community together, build friendships, and keep the server active and enjoyable</p>
+    </div>
+    <div class="glass-card tilt h-40 reveal">
+      <h3 class="text-xl cyber-gold">Bots</h3>
+      <p class="muted mt-2">Our server uses helpful and fun bots to make everything smoother. From music and moderation to mini-games and utilities, our bots keep the server organized, safe, and enjoyable for everyone.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STAFF -->
+<section id="staff" class="py-12 px-6 text-center">
+  <h2 class="text-3xl cyber-gold cyber-line reveal">Staff Team</h2>
+
+  <div class="grid md:grid-cols-3 gap-6 mt-8">
+
+    <div class="glass-card tilt reveal text-left">
+      <div class="flex items-center gap-3">
+        <img src="avatar-founder.jpg" class="h-14 w-14 rounded-md">
+        <div>
+          <h4 class="font-bold">Shinobu</h4>
+          <p class="muted text-sm">Team</p>
+        </div>
+      </div>
+    </div>
+   <div class="glass-card tilt reveal text-left">
+      <div class="flex items-center gap-3">
+        <img src="avatar-founder.jpg" class="h-14 w-14 rounded-md">
+        <div>
+          <h4 class="font-bold">MJ Gaming</h4>
+          <p class="muted text-sm">Team</p>
+        </div>
+      </div>
+    </div>
+   <div class="glass-card tilt reveal text-left">
+      <div class="flex items-center gap-3">
+        <img src="avatar-founder.jpg" class="h-14 w-14 rounded-md">
+        <div>
+          <h4 class="font-bold">Max</h4>
+          <p class="muted text-sm">Team</p>
+        </div>
+      </div>
+    </div>
+    <div class="glass-card tilt reveal text-left">
+      <div class="flex items-center gap-3">
+        <img src="avatar-admin.jpg" class="h-14 w-14 rounded-md">
+        <div>
+          <h4 class="font-bold">Mr.Minion</h4>
+          <p class="muted text-sm">Team</p>
+        </div>
+      </div>
+    </div>
+
+    
+    </div>
+
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats" class="py-16 text-center px-6">
+  <h2 class="text-3xl cyber-gold cyber-line reveal">Community Stats</h2>
+
+  <div class="mt-8 flex flex-wrap justify-center gap-6">
+    <div class="glass-card tilt w-48 reveal">
+      <div class="text-3xl cyber-gold">587</div>
+      <p class="muted">Members</p>
+    </div>
+
+    <div class="glass-card tilt w-48 reveal">
+      <div class="text-3xl cyber-gold">178</div>
+      <p class="muted">Online</p>
+    </div>
+
+    <div class="glass-card tilt w-48 reveal">
+      <div class="text-3xl cyber-gold">16</div>
+      <p class="muted">Boosts</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="py-14 text-center px-6">
+  <h2 class="text-3xl cyber-gold cyber-line reveal">Join The Crew</h2>
+  <a href="https://discord.gg/B3xRSAf669"
+     class="btn-gold btn-gold-border shockwave mt-6 inline-block">
+     Join Now
+  </a>
+  
+</section>
+
+<footer class="py-8 text-center muted">
+  © <span id="year"></span> ThamizCrew. All rights reserved.
+</footer>
+
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+
+/* reveal on scroll */
+const reveals=document.querySelectorAll('.reveal');
+function check(){
+  reveals.forEach(el=>{
+    if(el.getBoundingClientRect().top < window.innerHeight-60){
+      el.classList.add('active');
+    }
+  });
+}
+window.addEventListener("scroll",check);
+window.addEventListener("load",check);
+
+/* tilt effect */
+document.querySelectorAll(".tilt").forEach(card=>{
+  card.addEventListener("mousemove", e=>{
+    const r = card.getBoundingClientRect();
+    const x = e.clientX - r.left;
+    const y = e.clientY - r.top;
+    const rotX = (y/r.height - 0.5) * 12;
+    const rotY = (x/r.width - 0.5) * -12;
+    card.style.transform=`perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+  });
+  card.addEventListener("mouseleave",()=>{
+    card.style.transform="perspective(900px) rotateX(0) rotateY(0)";
+  });
+});
+</script>
+
+</body>
+</html>
