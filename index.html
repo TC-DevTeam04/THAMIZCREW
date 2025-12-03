@@ -1,359 +1,903 @@
 <!doctype html>
-<html lang="ta">
+<html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>ThamizCrew </title>
-
-<link rel="icon" type="image/png" href="A_classic_oil_painting_style_logo_for_Thamiz_Crew_Tamil_gaming_community_depicting_Tamil_temples_and_warriors_in_black_and_white_using_a_warm_terracotta_and_cool_teal_palette_with_an_earthy_and_cool_contrast_rich_t.jpg">
-<script src="https://cdn.tailwindcss.com"></script>
+<title>ThamizCrew — Premium v10 (Ultra Edition)</title>
+<link rel="icon" type="image/png" href="assets/logo-metal.png">
 
 <style>
-/* ===================================
-   CORE THEME VARIABLES
-=================================== */
+/* =========================
+   Premium v10 — Ultra Edition
+   All-in-one: Gold Esports + Cyberpunk + Ultra FX
+   Edit :root variables to tune brand colors.
+   ========================= */
 :root{
-  --tc-gold:#f5c542;
-  --card-bg:rgba(18,18,18,0.65);
+  --gold:#d9b94a;
+  --gold-strong:#f5c542;
+  --bg-900:#030303;
+  --muted: rgba(255,255,255,0.78);
+  --neon-c: #7df0ff;
+  --neon-m: #ff52d6;
+  --glass: rgba(255,255,255,0.02);
+  --accent: rgba(245,197,66,0.08);
+  --focus: rgba(245,197,66,0.18);
+  --maxW:1200px;
+  --ui-radius:12px;
+  --ui-shadow: 0 18px 50px rgba(0,0,0,0.6);
 }
 
-/* Base body */
-body{
-  margin:0;
-  font-family:Inter, ui-sans-serif, system-ui;
-  color:white;
-  background:
-    linear-gradient(180deg,rgba(0,0,0,0.85),rgba(0,0,0,0.55)),
-    url('images/tc-premium-bg.jpg') center/cover fixed no-repeat;
-  overflow-x:hidden;
-  animation:softmove 15s infinite alternate ease-in-out;
-}
+/* ---- Reset ---- */
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg-900),#070707);color:#fff;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",sans-serif; -webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;}
 
-/* Soft background camera move */
-@keyframes softmove{
-  0%{background-position:50% 50;}
-  100%{background-position:48% 52%;}
-}
+/* ---- layout container ---- */
+.container{max-width:var(--maxW);margin:0 auto;padding:0 20px}
 
-/* cyber gold text */
-.cyber-gold{
-  color:var(--tc-gold);
-  text-shadow:0 0 12px rgba(245,197,66,0.85);
+/* ---- Header ---- */
+header.site-header{
+  position:fixed;left:0;right:0;top:0;z-index:220;
+  background:linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.08));
+  backdrop-filter: blur(8px);
+  border-bottom:1px solid rgba(255,255,255,0.03);
 }
+.site-header .inner{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{height:48px;width:48px;border-radius:10px;object-fit:contain;filter:drop-shadow(0 12px 36px rgba(0,0,0,0.6));}
+.nav{display:flex;gap:12px;align-items:center;font-weight:700}
+.nav a{padding:8px 10px;border-radius:8px;color:var(--muted);font-size:14px}
+.nav a.cta{background:linear-gradient(90deg,#fff,var(--gold));color:#000;padding:9px 12px;border-radius:10px;font-weight:900;box-shadow:0 14px 38px rgba(0,0,0,0.6)}
 
-/* glitch logo effect */
-.glitch{position:relative;animation:glskew 2s infinite alternate;}
-.glitch:before,
-.glitch:after{
-  content:attr(data-text);
-  position:absolute;top:0;left:0;
-  color:var(--tc-gold);
+/* ---- Hero ---- */
+.hero {
+  position:relative; min-height:88vh; display:flex; align-items:center; justify-content:center; overflow:hidden; padding-top:84px;
+  background: linear-gradient(120deg, rgba(6,6,8,0.5), rgba(12,9,7,0.4));
 }
-.glitch:before{left:2px;text-shadow:-2px 0 #0ff;animation:gl1 2s infinite;}
-.glitch:after{left:-2px;text-shadow:-2px 0 #f0f;animation:gl2 1.5s infinite;}
+.hero-fallback{ position:absolute; inset:0; background: url('assets/hero-fallback.jpg') center/cover no-repeat; filter:brightness(.55); z-index:0; }
 
-@keyframes gl1{
-  0%{clip-path:inset(10% 0 80% 0);}
-  50%{clip-path:inset(40% 0 30% 0);}
-  100%{clip-path:inset(5% 0 90% 0);}
-}
-@keyframes gl2{
-  0%{clip-path:inset(15% 0 70% 0);}
-  50%{clip-path:inset(60% 0 20% 0);}
-  100%{clip-path:inset(20% 0 75% 0);}
-}
-@keyframes glskew{
-  0%{transform:skew(2deg);}
-  100%{transform:skew(-2deg);}
-}
+/* Video elements (kept hidden/shown by JS) */
+video.hero-video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; transform:scale(1.02); filter:brightness(.6) contrast(1.03); }
 
-/* Glass card */
-.glass-card{
-  background:var(--card-bg);
-  border-radius:15px;
-  border:1px solid rgba(255,255,255,0.06);
-  padding:1.2rem;
-  box-shadow:0 12px 40px rgba(0,0,0,0.6);
+/* Canvas layers (order matters) */
+canvas#cityLayers, canvas#wires, canvas#fog, canvas#rain, canvas#scan, canvas#glow {
+  position:absolute; inset:0; width:100%; height:100%; z-index:1; pointer-events:none;
 }
+canvas#cityLayers{ z-index:1; mix-blend-mode:normal; opacity:0.9; }
+canvas#wires{ z-index:2; mix-blend-mode:screen; opacity:0.95; }
+canvas#fog{ z-index:3; mix-blend-mode:overlay; opacity:0.82; }
+canvas#rain{ z-index:4; mix-blend-mode:screen; opacity:0.9; }
+canvas#glow{ z-index:5; mix-blend-mode:screen; opacity:0.9; }
+canvas#scan{ z-index:6; mix-blend-mode:overlay; opacity:0.08; }
 
-/* tilt effect improved */
-.tilt{
-  transition:transform .25s cubic-bezier(.2,.9,.2,1);
-}
-.tilt:hover{
-  transform: perspective(900px) rotateX(6deg) rotateY(-6deg) scale(1.04);
-}
+/* Hero UI */
+.hero-ui{ position:relative; z-index:210; width:100%; max-width:var(--maxW); padding:28px; display:flex; flex-direction:column; gap:18px; align-items:center; pointer-events:none; }
+.hero-grid{ width:100%; display:grid; grid-template-columns:1fr 420px; gap:28px; align-items:center; }
+@media (max-width:980px){ .hero-grid{ grid-template-columns:1fr; } .hero-ui{ padding:18px } }
 
-/* Buttons */
-.btn-gold{
-  position:relative;
-  background:linear-gradient(90deg,#fff,var(--tc-gold));
-  border-radius:10px;
-  padding:.7rem 1.2rem;
-  font-weight:800;
-  color:black;
-}
-.btn-gold-border{
-  position:relative;
-}
-.btn-gold-border:before{
-  content:'';
-  position:absolute;inset:-2px;
-  border-radius:12px;
-  border:2px solid var(--tc-gold);
-  clip-path:inset(0 100% 0 0);
-  transition:clip-path .8s linear;
-}
-.btn-gold-border:hover:before{
-  clip-path:inset(0 0 0 0);
-}
+/* Brand area */
+.logo-wrap{ width:96px; height:96px; border-radius:14px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.06)); display:flex; align-items:center; justify-content:center; box-shadow: var(--ui-shadow); pointer-events:auto; }
+.logo-wrap svg, .logo-wrap img{ width:74%; height:74%; display:block; }
 
-/* Shockwave click */
-.shockwave{overflow:hidden;}
-.shockwave:active:after{
-  content:"";
-  position:absolute;
-  left:50%;top:50%;
-  width:12px;height:12px;
-  background:var(--tc-gold);
-  border-radius:50%;
-  transform:translate(-50%,-50%);
-  animation:shock 0.45s ease-out;
-}
-@keyframes shock{
-  0%{opacity:.7;transform:translate(-50%,-50%) scale(1);}
-  100%{opacity:0;transform:translate(-50%,-50%) scale(18);}
-}
+/* Title */
+.title{ display:flex; flex-direction:column; align-items:flex-start; pointer-events:auto; }
+.title-main{ font-weight:900; font-size: clamp(30px,6vw,64px); margin:0; line-height:1; background: linear-gradient(90deg,#fff,var(--gold)); -webkit-background-clip:text; background-clip:text; color:transparent; text-shadow:0 12px 30px rgba(0,0,0,0.6); }
+.subtitle{ margin-top:6px; color:var(--muted); font-size:14px }
 
-/* cyber underline */
-.cyber-line{
-  position:relative;
-}
-.cyber-line:after{
-  content:"";
-  position:absolute;left:0;bottom:-4px;
-  height:3px;width:0%;
-  background:linear-gradient(90deg,var(--tc-gold),transparent);
-  animation:cyb 2s infinite;
-}
-@keyframes cyb{
-  0%{width:0%;left:0;}
-  40%{width:100%;left:0;}
-  100%{width:0;left:100%;}
-}
+/* Controls (selectors, toggles) - interactive so pointer events allowed */
+.controls{ display:flex; gap:10px; align-items:center; pointer-events:auto; }
+.select, .toggle { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.04); padding:8px 10px; border-radius:10px; color:var(--muted); font-weight:700; }
 
-/* reveal animation */
-.reveal{opacity:0;transform:translateY(28px);transition:.7s;}
-.reveal.active{opacity:1;transform:translateY(0);}
+/* CTA */
+.cta{ display:flex; gap:12px; margin-top:10px; pointer-events:auto; }
+.btn{ border:0; padding:12px 16px; border-radius:12px; font-weight:800; cursor:pointer; transition: transform .12s ease, box-shadow .12s ease; }
+.btn-primary{ background:linear-gradient(90deg,#fff,var(--gold)); color:#000; box-shadow:0 18px 48px rgba(0,0,0,0.6); }
+.btn-ghost{ background:transparent; border:1px solid rgba(255,255,255,0.06); color:#fff; }
 
-/* floating text */
-.floating{
-  animation:float 4s infinite ease-in-out;
+/* holographic underglow */
+.btn-primary::after{ content:""; position:absolute; left:0; right:0; bottom:-8px; height:10px; background:linear-gradient(90deg, rgba(125,240,255,0.08), rgba(255,82,214,0.06), rgba(245,197,66,0.06)); filter: blur(10px); opacity:0.9; border-radius:8px; pointer-events:none; }
+
+/* Right panel */
+.panel{ background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.06)); border-radius:14px; padding:16px; border:1px solid rgba(255,255,255,0.03); box-shadow:var(--ui-shadow); pointer-events:auto; }
+.stat-row{ display:flex; gap:10px; flex-wrap:wrap; }
+.stat{ flex:1; min-width:120px; padding:10px; border-radius:10px; text-align:center; background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.04)); border:1px solid rgba(255,255,255,0.02); }
+.stat .num{ font-size:20px; font-weight:900; color:var(--gold-strong) }
+.viz{ margin-top:10px; height:120px; display:flex; align-items:end; gap:6px; padding:8px; border-radius:10px; background:linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.02)); overflow:hidden; }
+
+/* terminal overlay */
+#terminal {
+  position:fixed; right:24px; bottom:24px; width:520px; max-width:calc(100% - 40px); height:320px; background:rgba(2,2,2,0.88); border-radius:12px; color:#aee7ff; font-family:monospace; font-size:13px; padding:12px; box-shadow:0 30px 90px rgba(0,0,0,0.8); z-index:999; display:none; flex-direction:column;
 }
-@keyframes float{
-  0%{transform:translateY(0);}
-  50%{transform:translateY(-10px);}
-  100%{transform:translateY(0);}
+#terminal .logs{ flex:1; overflow:auto; padding:6px; }
+#terminal .input-row{ display:flex; gap:8px; margin-top:8px; }
+
+/* cursor trail & magnetic pointer */
+.cursor { position:fixed; left:0; top:0; width:18px; height:18px; border-radius:50%; pointer-events:none; mix-blend-mode:screen; z-index:9999; transform:translate(-50%,-50%); transition:transform .08s linear; box-shadow:0 0 18px rgba(125,240,255,0.2); }
+.cursor-ghost{ position:fixed; left:0; top:0; width:6px; height:6px; border-radius:50%; background:var(--gold-strong); z-index:9998; transform:translate(-50%,-50%); pointer-events:none; opacity:0.9; }
+
+/* themes (toggle class on body) */
+body.theme-neon { --gold: #cfae2b; --neon-c: #7df0ff; --neon-m: #ff52d6; }
+body.theme-frost { --gold: #9fd1ff; --neon-c: #99d4ff; --neon-m: #7f8cff; }
+body.theme-dark { --gold: #bdbdbd; --neon-c: #7df0ff; --neon-m: #ff6fb3; }
+
+/* content & footer */
+main{ background:linear-gradient(180deg,#050505,#070507) }
+section.content{ padding:56px 20px; max-width:1080px; margin:0 auto; }
+.grid-3{ display:grid; gap:18px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); }
+
+/* accessibility */
+@media (prefers-reduced-motion: reduce){
+  *{ transition:none!important; animation:none!important }
+  canvas#rain, canvas#scan, canvas#wires, canvas#glow { display:none }
 }
 </style>
 </head>
-
 <body>
 
 <!-- HEADER -->
-<header class="fixed top-0 left-0 right-0 backdrop-blur-md bg-black/30 z-50">
-  <div class="max-w-6xl mx-auto flex items-center justify-between px-6 py-3">
-
-    <div class="flex items-center gap-3">
-      <img src="CDX.png" class="h-12 w-12 rounded-md">
-      <h1 class="text-xl cyber-gold glitch" data-text="🛕・𝗧ʜᴀᴍɪᴢ ᨖ 𝗖ʀᴇᴡ・🛕">🛕・𝗧ʜᴀᴍɪᴢ ᨖ 𝗖ʀᴇᴡ・🛕</h1>
+<header class="site-header" role="banner">
+  <div class="container inner">
+    <div class="brand" aria-label="ThamizCrew">
+      <img src="assets/logo-metal.png" alt="ThamizCrew logo" id="fallbackLogo">
+      <div>
+        <div style="font-weight:900;letter-spacing:.04em">ThamizCrew</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:3px">Esports • Cyber • Creators</div>
+      </div>
     </div>
 
-    <nav class="hidden md:flex gap-6 text-sm">
+    <nav class="nav" role="navigation" aria-label="Main menu">
       <a href="#about">About</a>
-      <a href="#features">Features</a>
-      <a href="#staff">Staff</a>
-      <a href="#stats">Stats</a>
-      <a href="https://discord.gg/B3xRSAf669" class="btn-gold btn-gold-border shockwave">Join</a>
+      <a href="#highlights">Highlights</a>
+      <a href="#contact">Join</a>
+      <a href="https://discord.gg/B3xRSAf669" class="cta">Join</a>
     </nav>
   </div>
 </header>
 
 <!-- HERO -->
-<section class="pt-32 pb-16 px-6 text-center">
-  <div class="max-w-5xl mx-auto glass-card reveal">
+<section class="hero" role="region" aria-label="Hero cinematic">
+  <div class="hero-fallback" aria-hidden="true"></div>
 
-    <h1 class="text-5xl cyber-gold glitch mb-3" data-text="">・𝗧ʜᴀᴍɪᴢ ᨖ 𝗖ʀᴇᴡ・</h1>
-    <p class="muted text-lg">Fastest-growing Tamil Discord community</p>
+  <!-- Hero videos (optional, shown by JS) -->
+  <video id="videoFog" class="hero-video" src="assets/hero-fog.mp4" autoplay muted loop playsinline style="display:none"></video>
+  <video id="videoRays" class="hero-video" src="assets/hero-godrays.mp4" autoplay muted loop playsinline style="display:none"></video>
+  <video id="videoGrid" class="hero-video" src="assets/hero-grid.mp4" autoplay muted loop playsinline style="display:none"></video>
 
-    <div class="mt-6 flex gap-4 justify-center flex-wrap">
-      <a href="https://discord.gg/B3xRSAf669" class="btn-gold btn-gold-border shockwave">Join Discord</a>
-      <a href="#about" class="px-5 py-3 border border-gray-600 rounded-lg">Learn More</a>
-    </div>
+  <!-- Canvas layers (city parallax, wires, fog, rain, glow, scanlines) -->
+  <canvas id="cityLayers" aria-hidden="true"></canvas>
+  <canvas id="wires" aria-hidden="true"></canvas>
+  <canvas id="fog" aria-hidden="true"></canvas>
+  <canvas id="rain" aria-hidden="true"></canvas>
+  <canvas id="glow" aria-hidden="true"></canvas>
+  <canvas id="scan" aria-hidden="true"></canvas>
 
-    <!-- ⭐ YOUR CHANGE ADDED HERE -->
-    <p class="mt-6 text-2xl cyber-gold floating">Tamil ・ Gaming  ・ Community</p>
+  <div class="hero-ui container">
+    <div class="hero-grid">
+      <div>
+        <div style="display:flex;gap:16px;align-items:center;">
+          <div class="logo-wrap" id="logoWrap" aria-hidden="false">
+            <!-- SVG logo will be injected by JS — fallback image shown initially -->
+            <img src="assets/logo-metal.png" alt="logo" id="logoImg">
+          </div>
 
-    <div id="heroFrame" class="mt-10 flex justify-center">
-      <div class="tilt" style="padding:20px;border-radius:12px;background:rgba(0,0,0,0.4);">
-        <img src="A_classic_oil_painting_style_logo_for_Thamiz_Crew_Tamil_gaming_community_depicting_Tamil_temples_and_warriors_in_black_and_white_using_a_warm_terracotta_and_cool_teal_palette_with_an_earthy_and_cool_contrast_rich_t.jpg" style="width:200px;">
-      </div>
-    </div>
+          <div class="title">
+            <h1 class="title-main" id="siteTitle">ThamizCrew</h1>
+            <div class="subtitle" id="siteSubtitle">Premium Esports • Light Cyberpunk Atmosphere</div>
+          </div>
+        </div>
 
-  </div>
-</section>
+        <div style="margin-top:14px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+          <div class="controls">
+            <label for="videoSelect" class="select">Hero</label>
+            <select id="videoSelect" class="select" aria-label="Hero style">
+              <option value="fog">Cyberpunk Fog</option>
+              <option value="rays">Gold Rays</option>
+              <option value="grid">Futuristic Grid</option>
+            </select>
 
+            <label for="logoSelect" class="select">Logo</label>
+            <select id="logoSelect" class="select" aria-label="Logo animation">
+              <option value="stroke">Stroke Draw</option>
+              <option value="shine">Metallic Shine</option>
+              <option value="neonring">Dual Neon Ring</option>
+            </select>
 
-<!-- ABOUT -->
-<section id="about" class="py-16 text-center px-6">
-  <h2 class="text-3xl cyber-gold cyber-line reveal">About Us</h2>
-  <p class="mt-4 max-w-2xl mx-auto muted">Thamiz Crew is a friendly and active Tamil-language gaming & community Discord server — a space for gamers, streamers, editors, and anyone who loves gaming or just chilling in a good community.</p>
+            <label for="themeSelect" class="select">Theme</label>
+            <select id="themeSelect" class="select" aria-label="Theme">
+              <option value="gold">Gold</option>
+              <option value="neon">Neon</option>
+              <option value="frost">Frost</option>
+              <option value="dark">Dark</option>
+            </select>
+          </div>
+        </div>
 
-  <div class="max-w-3xl mx-auto mt-10 glass-card tilt reveal">
-    <h3 class="text-xl cyber-gold">Who We Are</h3>
-    <p class="mt-2 muted">Thamiz Crew is a vibrant Tamil digital community powered by gamers, developers, editors, and creative minds.
-We believe in building a friendly and inclusive environment where passion meets collaboration.
-
-From gaming sessions to creative projects, from discussions to community events — we bring people together who share the same energy and enthusiasm. Thamiz Crew isn’t just a server; it’s a family-like space where every member feels valued, respected, and inspired to grow..</p>
-  </div>
-</section>
-
-<!-- FEATURES -->
-<section id="features" class="py-12 px-6 bg-black/20">
-  <h2 class="text-3xl text-center cyber-gold cyber-line reveal">Highlights</h2>
-
-  <div class="grid md:grid-cols-3 gap-6 mt-8">
-    <div class="glass-card tilt h-40 reveal">
-      <h3 class="text-xl cyber-gold">Active Chats</h3>
-      <p class="muted mt-2">Our server is always active with fun conversations — gaming talk, tech chats, memes, daily updates, and casual hangouts. There’s always someone to chat with, get help from, or just vibe with, 24/7.</p>
-    </div>
-    <div class="glass-card tilt h-40 reveal">
-      <h3 class="text-xl cyber-gold">Events</h3>
-      <p class="muted mt-2">We host regular fun events like gaming matches, quiz nights, movie sessions, and VC hangouts. Our events bring the community together, build friendships, and keep the server active and enjoyable</p>
-    </div>
-    <div class="glass-card tilt h-40 reveal">
-      <h3 class="text-xl cyber-gold">Bots</h3>
-      <p class="muted mt-2">Our server uses helpful and fun bots to make everything smoother. From music and moderation to mini-games and utilities, our bots keep the server organized, safe, and enjoyable for everyone.</p>
-    </div>
-  </div>
-</section>
-
-<!-- STAFF -->
-<section id="staff" class="py-12 px-6 text-center">
-  <h2 class="text-3xl cyber-gold cyber-line reveal">Staff Team</h2>
-
-  <div class="grid md:grid-cols-3 gap-6 mt-8">
-
-    <div class="glass-card tilt reveal text-left">
-      <div class="flex items-center gap-3">
-        <img src="avatar-founder.jpg" class="h-14 w-14 rounded-md">
-        <div>
-          <h4 class="font-bold">Shinobu</h4>
-          <p class="muted text-sm">Team</p>
+        <div style="margin-top:14px;">
+          <div class="cta">
+            <button class="btn btn-primary" id="joinBtn">Join Discord</button>
+            <button class="btn btn-ghost" id="learnBtn">Learn More</button>
+          </div>
+          <div class="hero-tag" style="margin-top:12px;">Gold Tier • Cyber Ambience • Competitive</div>
         </div>
       </div>
-    </div>
-   <div class="glass-card tilt reveal text-left">
-      <div class="flex items-center gap-3">
-        <img src="avatar-founder.jpg" class="h-14 w-14 rounded-md">
-        <div>
-          <h4 class="font-bold">MJ Gaming</h4>
-          <p class="muted text-sm">Team</p>
+
+      <aside class="panel" aria-label="Quick stats & visualizer">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div style="font-weight:900;color:var(--gold-strong)">Live Snapshot</div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <button class="btn btn-ghost" id="micToggle">Mic</button>
+            <label class="select" for="audioFile" style="cursor:pointer">Upload</label>
+            <input type="file" id="audioFile" accept="audio/*" style="display:none" />
+          </div>
         </div>
-      </div>
-    </div>
-   <div class="glass-card tilt reveal text-left">
-      <div class="flex items-center gap-3">
-        <img src="avatar-founder.jpg" class="h-14 w-14 rounded-md">
-        <div>
-          <h4 class="font-bold">Max</h4>
-          <p class="muted text-sm">Team</p>
+
+        <div class="stat-row" style="margin-top:8px;">
+          <div class="stat"><div class="num" id="statMembers">544</div><div class="label">Members</div></div>
+          <div class="stat"><div class="num" id="statOnline">178</div><div class="label">Online</div></div>
         </div>
-      </div>
-    </div>
-    <div class="glass-card tilt reveal text-left">
-      <div class="flex items-center gap-3">
-        <img src="avatar-admin.jpg" class="h-14 w-14 rounded-md">
-        <div>
-          <h4 class="font-bold">Mr.Minion</h4>
-          <p class="muted text-sm">Team</p>
+
+        <div class="viz" id="vizBars" aria-label="Audio visualizer"></div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
+          <small class="muted">Next Event: Saturday Night Cup</small>
+          <button class="btn btn-ghost" id="earlyBtn">Get Early Access</button>
         </div>
-      </div>
-    </div>
-
-    
-    </div>
-
-  </div>
-</section>
-
-<!-- STATS -->
-<section id="stats" class="py-16 text-center px-6">
-  <h2 class="text-3xl cyber-gold cyber-line reveal">Community Stats</h2>
-
-  <div class="mt-8 flex flex-wrap justify-center gap-6">
-    <div class="glass-card tilt w-48 reveal">
-      <div class="text-3xl cyber-gold">587</div>
-      <p class="muted">Members</p>
-    </div>
-
-    <div class="glass-card tilt w-48 reveal">
-      <div class="text-3xl cyber-gold">178</div>
-      <p class="muted">Online</p>
-    </div>
-
-    <div class="glass-card tilt w-48 reveal">
-      <div class="text-3xl cyber-gold">16</div>
-      <p class="muted">Boosts</p>
+      </aside>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
-<section class="py-14 text-center px-6">
-  <h2 class="text-3xl cyber-gold cyber-line reveal">Join The Crew</h2>
-  <a href="https://discord.gg/B3xRSAf669"
-     class="btn-gold btn-gold-border shockwave mt-6 inline-block">
-     Join Now
-  </a>
-  
-</section>
+<!-- MAIN -->
+<main>
+  <section id="about" class="content" aria-labelledby="aboutHeading">
+    <div class="section-heading" style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+      <div class="stripe" aria-hidden="true" style="height:6px;width:56px;border-radius:4px;background:linear-gradient(90deg, rgba(255,255,255,0.06), var(--gold-strong));"></div>
+      <h2 id="aboutHeading" style="margin:0;color:var(--gold-strong);font-weight:900;">About</h2>
+    </div>
+    <p class="muted">ThamizCrew blends tournament-grade esports with tasteful cyberpunk ambiance — premium production, active events, and creator-first features. Press <strong>J</strong> to join our Discord.</p>
+  </section>
 
-<footer class="py-8 text-center muted">
-  © <span id="year"></span> ThamizCrew. All rights reserved.
+  <section id="highlights" class="content" aria-labelledby="highHeading">
+    <div class="section-heading" style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+      <div class="stripe" aria-hidden="true" style="height:6px;width:56px;border-radius:4px;background:linear-gradient(90deg, rgba(255,255,255,0.06), var(--gold-strong));"></div>
+      <h2 id="highHeading" style="margin:0;color:var(--gold-strong);font-weight:900;">Highlights</h2>
+    </div>
+
+    <div class="grid-3">
+      <div class="panel"><div class="title" style="font-weight:900;color:var(--gold-strong)">Tournaments</div><p class="muted">Weekly pro cups, production-ready brackets and prize pools.</p></div>
+      <div class="panel"><div class="title" style="font-weight:900;color:var(--gold-strong)">Creator Hub</div><p class="muted">Collabs, co-streams and creator support programs.</p></div>
+      <div class="panel"><div class="title" style="font-weight:900;color:var(--gold-strong)">Roleplay</div><p class="muted">High-quality RP servers with custom scripts and events.</p></div>
+    </div>
+  </section>
+
+  <section id="contact" class="content center" aria-labelledby="joinHeading">
+    <div class="section-heading center" style="justify-content:center;display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+      <div class="stripe" aria-hidden="true" style="height:6px;width:56px;border-radius:4px;background:linear-gradient(90deg, rgba(255,255,255,0.06), var(--gold-strong));"></div>
+      <h2 id="joinHeading" style="margin:0;color:var(--gold-strong);font-weight:900;">Join</h2>
+    </div>
+    <p class="muted">Best on desktop — press <strong>J</strong> or click Join to open the invite.</p>
+  </section>
+</main>
+
+<!-- Terminal overlay -->
+<div id="terminal" role="dialog" aria-label="Developer console">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+    <div style="font-weight:900;color:var(--neon-c)">~ ThamizCrew Console</div>
+    <button id="termClose" class="btn btn-ghost">Close</button>
+  </div>
+  <div class="logs" id="termLogs" aria-live="polite"></div>
+  <div class="input-row">
+    <input id="termInput" style="flex:1;background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px;border-radius:8px;color:#aee7ff;" placeholder="Type command (stats / info / join)"/>
+    <button id="termSend" class="btn btn-primary">Send</button>
+  </div>
+</div>
+
+<!-- cursor elements -->
+<div id="cursor" class="cursor" aria-hidden="true"></div>
+<div id="cursorGhost" class="cursor-ghost" aria-hidden="true"></div>
+
+<footer style="padding:22px 20px;text-align:center;color:var(--muted);border-top:1px solid rgba(255,255,255,0.02);">
+  © <span id="year"></span> ThamizCrew — All rights reserved
 </footer>
 
-
 <script>
-document.getElementById("year").textContent = new Date().getFullYear();
+/* ===========================
+   Premium v10 — All features JS
+   - Big file but modular
+   - Edit variables at top, media in assets/
+   =========================== */
 
-/* reveal on scroll */
-const reveals=document.querySelectorAll('.reveal');
-function check(){
-  reveals.forEach(el=>{
-    if(el.getBoundingClientRect().top < window.innerHeight-60){
-      el.classList.add('active');
+/* UTILS */
+const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent || '');
+const supportsAudio = !!(window.AudioContext || window.webkitAudioContext);
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ---------- Simple UX: buttons & shortcuts ---------- */
+const joinBtn = document.getElementById('joinBtn');
+joinBtn.addEventListener('click', ()=> window.open('https://discord.gg/B3xRSAf669','_blank','noopener'));
+document.addEventListener('keydown', e => { if(e.key && e.key.toLowerCase()==='j') joinBtn.click(); });
+
+document.getElementById('learnBtn').addEventListener('click', ()=> document.getElementById('about').scrollIntoView({behavior:'smooth'}));
+document.getElementById('earlyBtn').addEventListener('click', ()=> alert('Early access request sent (mock).'));
+
+/* ---------- Theme switcher (T key) ---------- */
+const themeSelect = document.getElementById('themeSelect');
+const themeMap = { gold:'', neon:'theme-neon', frost:'theme-frost', dark:'theme-dark' };
+function applyTheme(name){
+  document.body.classList.remove('theme-neon','theme-frost','theme-dark');
+  const cls = themeMap[name] || '';
+  if(cls) document.body.classList.add(cls);
+}
+themeSelect.addEventListener('change', e => applyTheme(e.target.value));
+document.addEventListener('keydown', e => { if(e.key && e.key.toLowerCase()==='t'){ // cycle themes
+  const current = themeSelect.value;
+  const vals = ['gold','neon','frost','dark']; const idx = (vals.indexOf(current)+1)%vals.length;
+  themeSelect.value = vals[idx]; applyTheme(vals[idx]);
+}});
+
+/* ---------- Console overlay (tilde ~) ---------- */
+const terminal = document.getElementById('terminal');
+const termLogs = document.getElementById('termLogs');
+const termInput = document.getElementById('termInput');
+function appendLog(text){ const p = document.createElement('div'); p.textContent = text; termLogs.appendChild(p); termLogs.scrollTop = termLogs.scrollHeight; }
+document.addEventListener('keydown', e => {
+  if(e.key === '~' || (e.key === '`' && e.shiftKey === false)) {
+    terminal.style.display = terminal.style.display === 'flex' ? 'none' : 'flex';
+    if(terminal.style.display === 'flex') termInput.focus();
+  }
+});
+document.getElementById('termClose').addEventListener('click', ()=> terminal.style.display='none');
+document.getElementById('termSend').addEventListener('click', ()=> { runCommand(termInput.value); termInput.value=''; });
+termInput.addEventListener('keydown', e => { if(e.key === 'Enter'){ runCommand(termInput.value); termInput.value=''; } });
+
+function runCommand(cmd){
+  const c = (cmd||'').trim().toLowerCase();
+  if(!c) { appendLog('>'); return; }
+  appendLog('> ' + c);
+  if(c === 'stats'){ appendLog('Members: 544'); appendLog('Online: 178'); appendLog('NextEvent: Saturday Night Cup'); }
+  else if(c === 'join'){ appendLog('Opening Discord...'); joinBtn.click(); }
+  else if(c === 'info'){ appendLog('ThamizCrew Premium v10 — Ultra Edition'); }
+  else appendLog('Unknown command: ' + c);
+}
+
+/* ---------- Logo SVG injection + 3 animation modes ---------- */
+const logoWrap = document.getElementById('logoWrap');
+const logoSelect = document.getElementById('logoSelect');
+const logoImg = document.getElementById('logoImg');
+
+// small vector logo template (monogram TC)
+const svgLogo = `
+<svg id="tcSvg" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ThamizCrew logo">
+  <defs>
+    <linearGradient id="gGold" x1="0" x2="1"><stop offset="0" stop-color="#fff7d1"/><stop offset="1" stop-color="${getComputedStyle(document.documentElement).getPropertyValue('--gold-strong') || '#f5c542'}"/></linearGradient>
+    <linearGradient id="gNeon" x1="0" x2="1"><stop offset="0" stop-color="${getComputedStyle(document.documentElement).getPropertyValue('--neon-c') || '#7df0ff'}"/><stop offset="1" stop-color="${getComputedStyle(document.documentElement).getPropertyValue('--neon-m') || '#ff52d6'}"/></linearGradient>
+  </defs>
+  <circle cx="110" cy="110" r="98" fill="url(#gGold)" opacity="0.06"/>
+  <g transform="translate(18,18)" stroke-linecap="round" stroke-linejoin="round">
+    <path id="p1" d="M36 170 L36 40 L86 40 C120 40 120 88 86 88 L36 88" stroke="url(#gGold)" stroke-width="10" fill="none"/>
+    <path id="p2" d="M126 88 C158 88 168 120 132 150 C100 176 66 156 126 156" stroke="url(#gGold)" stroke-width="10" fill="none" />
+  </g>
+  <rect id="shine" x="-220" y="0" width="220" height="220" fill="white" opacity="0"></rect>
+  <circle id="neonRing" cx="110" cy="110" r="92" stroke="url(#gNeon)" stroke-width="4" fill="none" opacity="0"></circle>
+</svg>`;
+
+// mount and animate
+let activeSvgStop = null;
+function mountLogo(mode='stroke'){
+  logoWrap.innerHTML = svgLogo;
+  logoImg.style.display = 'none';
+  const svg = document.getElementById('tcSvg');
+  const p1 = document.getElementById('p1');
+  const p2 = document.getElementById('p2');
+  const shine = document.getElementById('shine');
+  const ring = document.getElementById('neonRing');
+
+  // reset
+  [p1,p2].forEach(p => {
+    const len = p.getTotalLength ? p.getTotalLength() : 500;
+    p.style.strokeDasharray = len;
+    p.style.strokeDashoffset = len;
+    p.style.transition = 'none';
+    p.style.opacity = 1;
+  });
+  shine.style.opacity = 0; ring.style.opacity = 0;
+
+  if(activeSvgStop) { try{ activeSvgStop(); }catch{} activeSvgStop = null; }
+
+  if(mode === 'stroke'){
+    [p1,p2].forEach((p,i) => {
+      const len = p.getTotalLength();
+      p.style.strokeDasharray = len;
+      p.style.strokeDashoffset = len;
+      setTimeout(()=> { p.style.transition = 'stroke-dashoffset 1.4s cubic-bezier(.2,.9,.2,1)'; p.style.strokeDashoffset = '0'; }, i*160);
+    });
+  } else if(mode === 'shine'){
+    // metallic sweep loop
+    shine.style.opacity = 0.9;
+    let running = true;
+    function sweep(){
+      if(!running) return;
+      shine.style.transform = 'translateX(-360px) rotate(18deg)';
+      shine.style.opacity = '0.9';
+      requestAnimationFrame(()=> setTimeout(()=> { shine.style.transform = 'translateX(420px) rotate(18deg)'; shine.style.opacity = '0'; }, 50));
+      setTimeout(()=>{ if(running) sweep(); }, 1400);
     }
+    sweep();
+    activeSvgStop = ()=> running = false;
+  } else if(mode === 'neonring'){
+    ring.style.opacity = 1;
+    let t=0; let running=true;
+    function pulse(){
+      if(!running) return;
+      t+=0.04;
+      const s = 3 + Math.abs(Math.sin(t)*2.6);
+      ring.setAttribute('stroke-width', s.toFixed(2));
+      ring.style.filter = 'drop-shadow(0 10px 28px rgba(125,240,255,0.18))';
+      requestAnimationFrame(pulse);
+    }
+    pulse();
+    activeSvgStop = ()=> running=false;
+  }
+}
+
+// attach select
+logoSelect.addEventListener('change', e => mountLogo(e.target.value));
+mountLogo(logoSelect.value || 'stroke'); // default
+
+/* ---------- Hero video switching with mobile perf ---------- */
+const videoSelect = document.getElementById('videoSelect');
+const videoFog = document.getElementById('videoFog');
+const videoRays = document.getElementById('videoRays');
+const videoGrid = document.getElementById('videoGrid');
+const videos = { fog: videoFog, rays: videoRays, grid: videoGrid };
+
+function setHeroStyle(style){
+  // hide all & pause
+  Object.values(videos).forEach(v => { if(v){ v.style.display='none'; try{ v.pause(); }catch{} }});
+  if(isMobile){
+    // on mobile keep fallback image; attempt low-res video if screen wide
+    const v = videos[style];
+    if(v && v.src && window.innerWidth > 700){
+      v.style.display='block';
+      v.play().catch(()=>{});
+    }
+  } else {
+    const v = videos[style];
+    if(v && v.src){
+      v.style.display='block';
+      v.currentTime = 0; v.play().catch(()=>{});
+    }
+  }
+}
+videoSelect.addEventListener('change', e=> setHeroStyle(e.target.value));
+setHeroStyle(videoSelect.value || 'fog');
+
+/* ---------- Audio visualizer (WebAudio) ---------- */
+const viz = document.getElementById('vizBars');
+function createBars(count=36){
+  viz.innerHTML = '';
+  for(let i=0;i<count;i++){
+    const b = document.createElement('div');
+    b.className = 'bar'; b.style.height='8px';
+    viz.appendChild(b);
+  }
+}
+createBars(36);
+
+let audioCtx = null, analyser = null, sourceNode = null, animationId = null;
+function ensureAudio(){
+  if(!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    analyser = audioCtx.createAnalyser();
+    analyser.fftSize = 1024;
+  }
+}
+function drawAnalyzer(){
+  if(!analyser) return;
+  const data = new Uint8Array(analyser.frequencyBinCount);
+  analyser.getByteFrequencyData(data);
+  const bars = Array.from(viz.children);
+  const step = Math.floor(data.length / bars.length);
+  for(let i=0;i<bars.length;i++){
+    let sum = 0; for(let j=0;j<step;j++) sum += data[i*step+j] || 0;
+    const avg = sum / step / 255;
+    const h = Math.max(6, avg * viz.clientHeight * 1.2);
+    bars[i].style.height = h + 'px';
+  }
+  // drive logo glow intensity and wires brightness by overall energy
+  const energy = data.reduce((a,b)=>a+b,0)/data.length/255;
+  // set CSS var for glow
+  document.documentElement.style.setProperty('--audio-energy', energy.toFixed(3));
+  animationId = requestAnimationFrame(drawAnalyzer);
+}
+
+// mic toggle
+const micToggle = document.getElementById('micToggle');
+let micStream = null;
+micToggle.addEventListener('click', async ()=>{
+  if(micStream){
+    // stop
+    micStream.getTracks().forEach(t=>t.stop()); micStream=null;
+    stopAudio();
+    micToggle.textContent = 'Mic';
+    return;
+  }
+  try{
+    const stream = await navigator.mediaDevices.getUserMedia({ audio:true });
+    ensureAudio();
+    stopAudio();
+    sourceNode = audioCtx.createMediaStreamSource(stream);
+    sourceNode.connect(analyser);
+    analyser.connect(audioCtx.destination ? audioCtx.destination : audioCtx.createGain());
+    micStream = stream;
+    micToggle.textContent = 'Mic • On';
+    drawAnalyzer();
+  } catch(err){ console.warn('mic error', err); alert('Microphone permission denied or unavailable.'); }
+});
+
+// file upload
+const audioFile = document.getElementById('audioFile');
+audioFile.addEventListener('change', async (e)=>{
+  const file = e.target.files[0]; if(!file) return;
+  ensureAudio();
+  stopAudio();
+  const arr = await file.arrayBuffer();
+  const decoded = await audioCtx.decodeAudioData(arr);
+  const buffer = audioCtx.createBufferSource();
+  buffer.buffer = decoded;
+  buffer.connect(analyser);
+  analyser.connect(audioCtx.destination);
+  buffer.start(0);
+  sourceNode = buffer;
+  drawAnalyzer();
+});
+
+// stop audio
+function stopAudio(){
+  try{ if(sourceNode) sourceNode.disconnect(); } catch(e){}
+  sourceNode = null;
+  cancelAnimationFrame(animationId);
+}
+
+/* ---------- Visual elements: city parallax layers (canvas) ---------- */
+const cityCanvas = document.getElementById('cityLayers');
+const wiresCanvas = document.getElementById('wires');
+const fogCanvas = document.getElementById('fog');
+const rainCanvas = document.getElementById('rain');
+const glowCanvas = document.getElementById('glow');
+const scanCanvas = document.getElementById('scan');
+
+function resizeAll(){
+  [cityCanvas,wiresCanvas,fogCanvas,rainCanvas,glowCanvas,scanCanvas].forEach(c=>{
+    if(!c) return;
+    const dpr = window.devicePixelRatio || 1;
+    const w = Math.floor(c.clientWidth * dpr);
+    const h = Math.floor(c.clientHeight * dpr);
+    if(c.width !== w || c.height !== h){ c.width = w; c.height = h; }
   });
 }
-window.addEventListener("scroll",check);
-window.addEventListener("load",check);
+window.addEventListener('resize', resizeAll);
+resizeAll();
 
-/* tilt effect */
-document.querySelectorAll(".tilt").forEach(card=>{
-  card.addEventListener("mousemove", e=>{
-    const r = card.getBoundingClientRect();
-    const x = e.clientX - r.left;
-    const y = e.clientY - r.top;
-    const rotX = (y/r.height - 0.5) * 12;
-    const rotY = (x/r.width - 0.5) * -12;
-    card.style.transform=`perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
-  });
-  card.addEventListener("mouseleave",()=>{
-    card.style.transform="perspective(900px) rotateX(0) rotateY(0)";
-  });
+/* City layers: pseudo-depth parallax using simple shapes (keeps performance) */
+(function drawCity(){
+  if(!cityCanvas) return;
+  const ctx = cityCanvas.getContext('2d');
+  const dpr = () => window.devicePixelRatio || 1;
+  let lastMouse = {x:0,y:0};
+  window.addEventListener('mousemove', e=> lastMouse = {x:e.clientX,y:e.clientY});
+  function render(){
+    resizeAll();
+    const w = cityCanvas.width / dpr(), h = cityCanvas.height / dpr();
+    ctx.clearRect(0,0,cityCanvas.width,cityCanvas.height);
+    ctx.save(); ctx.scale(dpr(),dpr());
+
+    // background silhouette
+    ctx.fillStyle = 'rgba(6,6,8,0.9)';
+    ctx.fillRect(0, h*0.55, w, h*0.45);
+
+    // draw multiple silhouette layers
+    const layers = 4;
+    for(let i=0;i<layers;i++){
+      const depth = i / layers;
+      ctx.fillStyle = `rgba(0,0,0,${0.25 - depth*0.05})`;
+      ctx.beginPath();
+      const baseH = h*0.6 + depth*40;
+      ctx.moveTo(0, h);
+      for(let x=0;x<=w;x+=60){
+        const noise = Math.sin((x*0.02) + Date.now()/1000*(0.2 + depth*0.15) + i)* (20 + depth*30);
+        ctx.lineTo(x, baseH - noise - depth*20);
+      }
+      ctx.lineTo(w, h); ctx.closePath(); ctx.fill();
+    }
+
+    // neon billboard rectangles
+    for(let i=0;i<12;i++){
+      const bw = 60 + (i%3)*40;
+      const bx = (i*110) % w;
+      const by = h*0.38 - (i%4)*12;
+      const g = ctx.createLinearGradient(bx,by,bx+bw,by);
+      g.addColorStop(0, 'rgba(125,240,255,0.06)');
+      g.addColorStop(1, 'rgba(255,82,214,0.04)');
+      ctx.fillStyle = g;
+      ctx.fillRect(bx, by, bw, 18);
+    }
+
+    ctx.restore();
+    requestAnimationFrame(render);
+  }
+  render();
+})();
+
+/* Neon wires: animated SVG-like paths on canvas */
+(function wires(){
+  if(!wiresCanvas) return;
+  const ctx = wiresCanvas.getContext('2d');
+  const dpr = () => window.devicePixelRatio || 1;
+  const segments = [];
+  let W=0,H=0;
+  function init(){
+    resizeAll();
+    W = wiresCanvas.width / dpr(); H = wiresCanvas.height / dpr();
+    segments.length = 0;
+    const count = Math.max(28, Math.floor(W/40));
+    for(let i=0;i<count;i++){
+      const path = [];
+      const sx = Math.random()*W;
+      for(let j=0;j<6;j++){
+        path.push({x: sx + Math.random()*200 - 100, y: (H*0.2) + j*(H*0.12) + Math.random()*40});
+      }
+      segments.push({path, speed: 0.6 + Math.random()*0.9, phase: Math.random()*Math.PI*2});
+    }
+  }
+  function draw(){
+    resizeAll();
+    const W = wiresCanvas.width / dpr(), H = wiresCanvas.height / dpr();
+    ctx.clearRect(0,0,wiresCanvas.width,wiresCanvas.height);
+    ctx.save(); ctx.scale(dpr(),dpr());
+    for(const s of segments){
+      s.phase += 0.02 * s.speed;
+      // draw gradient stroke
+      const grad = ctx.createLinearGradient(0,0,W,H);
+      grad.addColorStop(0, 'rgba(125,240,255,0.95)');
+      grad.addColorStop(0.6, 'rgba(255,82,214,0.65)');
+      grad.addColorStop(1, 'rgba(245,197,66,0.18)');
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 1.6;
+      ctx.beginPath();
+      for(let i=0;i<s.path.length;i++){
+        const p = s.path[i];
+        const nx = p.x + Math.sin(s.phase + i*0.6) * 8;
+        const ny = p.y + Math.cos(s.phase + i*0.4) * 6;
+        if(i===0) ctx.moveTo(nx,ny); else ctx.lineTo(nx,ny);
+      }
+      ctx.stroke();
+      // pulsating dots
+      for(let i=0;i<s.path.length;i+=2){
+        const p = s.path[i];
+        const pulse = 1 + Math.sin(s.phase + i)*1.5;
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(255,255,255,${0.06 + Math.abs(Math.sin(s.phase + i))*0.7})`;
+        ctx.arc(p.x, p.y, 1.2 * pulse, 0, Math.PI*2);
+        ctx.fill();
+      }
+    }
+    ctx.restore();
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize', init);
+  init(); draw();
+})();
+
+/* Fog canvas: soft layered bands */
+(function fog(){
+  if(!fogCanvas) return;
+  const ctx = fogCanvas.getContext('2d');
+  const dpr = () => window.devicePixelRatio || 1;
+  function draw(){
+    resizeAll();
+    const W = fogCanvas.width / dpr(), H = fogCanvas.height / dpr();
+    ctx.clearRect(0,0,fogCanvas.width,fogCanvas.height);
+    ctx.save(); ctx.scale(dpr(),dpr());
+    for(let i=0;i<4;i++){
+      const t = Date.now()/12000 + i*0.3;
+      const y = (Math.sin(t*1.2 + i)*0.5 + 0.5) * H;
+      const height = H*0.28 * (0.6 + i*0.08);
+      const grad = ctx.createLinearGradient(0, y-height, 0, y+height);
+      grad.addColorStop(0, 'rgba(0,0,0,0)');
+      grad.addColorStop(0.4, `rgba(10,8,6,${0.01 + i*0.01})`);
+      grad.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, y - height, W, height*2);
+    }
+    ctx.restore();
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* Rain canvas (subtle neon lines) */
+(function rain(){
+  if(!rainCanvas) return;
+  const ctx = rainCanvas.getContext('2d');
+  const dpr = () => window.devicePixelRatio || 1;
+  let drops = [];
+  function init(){
+    resizeAll();
+    const W = rainCanvas.width / dpr(), H = rainCanvas.height / dpr();
+    drops = [];
+    const count = Math.max(40, Math.floor(W / 12));
+    for(let i=0;i<count;i++){
+      drops.push({ x: Math.random()*W, y: Math.random()*H, len: 8 + Math.random()*22, speed: 0.6 + Math.random()*1.6 });
+    }
+  }
+  function step(){
+    resizeAll();
+    const W = rainCanvas.width / dpr(), H = rainCanvas.height / dpr();
+    ctx.clearRect(0,0,rainCanvas.width,rainCanvas.height);
+    ctx.save(); ctx.scale(dpr(),dpr());
+    for(const d of drops){
+      d.y += d.speed * 1.6 + Math.sin(Date.now()/700 + d.x*0.01)*0.04;
+      if(d.y > H + d.len){ d.y = -d.len - Math.random()*60; d.x = Math.random()*W; }
+      const alpha = 0.08 + 0.4 * (0.6 + Math.sin((Date.now()/900)+d.x*0.02)*0.4);
+      const g = ctx.createLinearGradient(d.x, d.y, d.x, d.y + d.len);
+      g.addColorStop(0, `rgba(125,240,255,${alpha*0.9})`);
+      g.addColorStop(0.5, `rgba(255,82,214,${alpha*0.45})`);
+      g.addColorStop(1, `rgba(245,197,66,${alpha*0.12})`);
+      ctx.fillStyle = g;
+      ctx.fillRect(d.x, d.y, 2, d.len);
+    }
+    ctx.restore();
+    requestAnimationFrame(step);
+  }
+  window.addEventListener('resize', init);
+  init(); step();
+})();
+
+/* Glow canvas: soft radial glows */
+(function glow(){
+  if(!glowCanvas) return;
+  const ctx = glowCanvas.getContext('2d');
+  function draw(){
+    resizeAll();
+    const dpr = window.devicePixelRatio || 1;
+    const W = glowCanvas.width / dpr, H = glowCanvas.height / dpr;
+    ctx.clearRect(0,0,glowCanvas.width,glowCanvas.height);
+    ctx.save(); ctx.scale(dpr(),dpr());
+    const t = Date.now()/1000;
+    const x1 = W*0.2 + Math.sin(t*0.7)*80;
+    const y1 = H*0.25 + Math.cos(t*0.6)*60;
+    const rg1 = ctx.createRadialGradient(x1,y1,0,x1,y1, W*0.4);
+    rg1.addColorStop(0, 'rgba(125,240,255,0.06)');
+    rg1.addColorStop(1, 'rgba(125,240,255,0)');
+    ctx.fillStyle = rg1;
+    ctx.fillRect(0,0,W,H);
+
+    const x2 = W*0.85 + Math.sin(t*0.9+1)*40;
+    const y2 = H*0.35 + Math.cos(t*0.8+1)*50;
+    const rg2 = ctx.createRadialGradient(x2,y2,0,x2,y2,W*0.45);
+    rg2.addColorStop(0,'rgba(255,82,214,0.05)');
+    rg2.addColorStop(1,'rgba(255,82,214,0)');
+    ctx.fillStyle = rg2; ctx.fillRect(0,0,W,H);
+    ctx.restore();
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* Scanlines */
+(function scan(){
+  if(!scanCanvas) return;
+  const ctx = scanCanvas.getContext('2d');
+  function draw(){
+    resizeAll();
+    const dpr = window.devicePixelRatio || 1;
+    const W = scanCanvas.width / dpr, H = scanCanvas.height / dpr;
+    ctx.clearRect(0,0,scanCanvas.width,scanCanvas.height);
+    ctx.save(); ctx.scale(dpr(),dpr()); ctx.globalAlpha = 0.06;
+    const lineH = 2;
+    for(let y=0;y<H;y+=6) ctx.fillRect(0,y, W, lineH);
+    ctx.restore();
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ---------- Cursor magnetic + trail + particle burst on click ---------- */
+const cursor = document.getElementById('cursor'), ghost = document.getElementById('cursorGhost');
+let mx=0,my=0; let gx=0,gy=0;
+window.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cursor.style.left=mx+'px'; cursor.style.top=my+'px'; });
+function animateCursor(){ gx += (mx-gx)*0.22; gy += (my-gy)*0.22; ghost.style.left = gx+'px'; ghost.style.top = gy+'px'; requestAnimationFrame(animateCursor); }
+animateCursor();
+
+// particle burst on click
+document.addEventListener('click', e=>{
+  const x=e.clientX, y=e.clientY;
+  for(let i=0;i<12;i++){
+    const p = document.createElement('div');
+    p.style.position='fixed'; p.style.left=x+'px'; p.style.top=y+'px'; p.style.width='6px'; p.style.height='6px';
+    p.style.borderRadius='50%'; p.style.pointerEvents='none';
+    p.style.background = i%2? 'rgba(125,240,255,0.95)':'rgba(245,197,66,0.95)';
+    p.style.zIndex=9999; p.style.transform='translate(-50%,-50%)';
+    document.body.appendChild(p);
+    const ang = Math.random()*Math.PI*2;
+    const dist = 30 + Math.random()*60;
+    const tx = x + Math.cos(ang)*dist; const ty = y + Math.sin(ang)*dist;
+    p.animate([{transform:'translate(-50%,-50%) scale(1)', opacity:1},{transform:`translate(${tx-x -50}% , ${ty-y -50}%) scale(0.25)`, opacity:0}], {duration:700+Math.random()*300, easing:'cubic-bezier(.2,.9,.2,1)'});
+    setTimeout(()=> p.remove(), 1000);
+  }
 });
-</script>
 
+/* ---------- Theme initial apply ---------- */
+applyTheme(themeSelect.value || 'gold'); // defined earlier in CSS control
+function applyTheme(name){
+  document.body.classList.remove('theme-neon','theme-frost','theme-dark');
+  if(name==='neon') document.body.classList.add('theme-neon');
+  if(name==='frost') document.body.classList.add('theme-frost');
+  if(name==='dark') document.body.classList.add('theme-dark');
+}
+
+/* ---------- Visualizer mock fallback when audio not active ---------- */
+(function mockViz(){
+  if(!supportsAudio) {
+    const bars = Array.from(document.querySelectorAll('#vizBars .bar'));
+    if(bars.length === 0) createBars(36);
+    function step(){
+      const nodes = Array.from(document.querySelectorAll('#vizBars .bar'));
+      nodes.forEach((n,i)=>{
+        const t = Date.now()/420 + i*0.11;
+        const amp = Math.abs(Math.sin(t))*0.56 + Math.random()*0.18;
+        const hh = Math.max(6, amp * (viz.clientHeight - 6));
+        n.style.height = hh + 'px';
+      });
+      requestAnimationFrame(step);
+    }
+    step();
+  }
+})();
+
+/* ---------- Live stats easing ---------- */
+(function statsAnim(){
+  const members = document.getElementById('statMembers'), online = document.getElementById('statOnline');
+  function ease(el, start, end, dur=1100){
+    const t0 = performance.now();
+    function tick(now){
+      const p = Math.min(1,(now-t0)/dur), eased = 1 - Math.pow(1-p,3);
+      el.textContent = Math.floor(start + (end-start)*eased);
+      if(p<1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  ease(members,0,544,1200); ease(online,0,178,900);
+})();
+
+/* ---------- Performance mode adjustments ---------- */
+(function perf(){
+  const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(prefersReduced || isMobile){
+    // hide heavy canvases
+    [wiresCanvas,rainCanvas,glowCanvas,scanCanvas].forEach(c => { if(c) c.style.display='none'; });
+    // show fallback hero image
+    document.querySelector('.hero-fallback').style.display='block';
+    // pause videos
+    Object.values(videos||{}).forEach(v => { if(v) { v.pause(); v.style.display='none'; }});
+  }
+})();
+
+/* ---------- Accessibility: show focus when tabbing ---------- */
+document.addEventListener('keydown', e => { if(e.key === 'Tab') document.documentElement.classList.add('show-focus'); }, {once:true});
+
+/* ---------- Init: set up viz bars (if empty) ---------- */
+if(document.querySelectorAll('#vizBars .bar').length === 0) createBars(36);
+
+/* ---------- Final: set up small UI interactions ---------- */
+document.getElementById('videoSelect').value = 'fog';
+document.getElementById('logoSelect').value = 'stroke';
+document.getElementById('themeSelect').value = 'gold';
+setHeroStyle('fog');
+
+
+</script>
 </body>
 </html>
